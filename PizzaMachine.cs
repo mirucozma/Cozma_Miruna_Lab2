@@ -70,7 +70,7 @@ namespace Cozma_Miruna_Lab2
             Ingredients = dIngredients;
 
             switch (Ingredients)
-            
+
             {
                 case PizzaType.Canibale: Interval = 3; break;
                 case PizzaType.Margherita: Interval = 2; break;
@@ -131,3 +131,4 @@ namespace Cozma_Miruna_Lab2
     }// end Pizza class 
 
 }
+

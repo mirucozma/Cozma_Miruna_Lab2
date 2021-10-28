@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Threading;
+using System.ComponentModel;
 
-namespace Cozma_Miruna_Lab2
+
+namespace Cozma_Miruna_Lab2  
 {
-    class PizzaMachine : Component
+    class PizzaMachine : Component            //3.1          3.5
     {
-        private PizzaType mIngredients;
+        private PizzaType mIngredients;        //3.4
         public PizzaType Ingredients
         {
             get
@@ -19,7 +21,7 @@ namespace Cozma_Miruna_Lab2
                 mIngredients = value;
             }
         }
-        private System.Collections.ArrayList mPizzas = new System.Collections.ArrayList();
+        private System.Collections.ArrayList mPizzas = new System.Collections.ArrayList();   //3.5
         public Pizza this[int Index]
         {
             get
@@ -31,28 +33,29 @@ namespace Cozma_Miruna_Lab2
                 mPizzas[Index] = value;
             }
         }
-        public delegate void DoughnutCompleteDelegate();
-        public event DoughnutCompleteDelegate DoughnutComplete;
-        DispatcherTimer pizzaBakeTimer;
+        public delegate void PizzaCompleteDelegate();       //3.6
+        public event PizzaCompleteDelegate PizzaComplete;
+        DispatcherTimer pizzaBakeTimer;         //3.7
 
-        private void InitializeComponent()
+        private void InitializeComponent()      //3.8
         {
             this.pizzaBakeTimer = new DispatcherTimer();
             this.pizzaBakeTimer.Tick += new System.EventHandler(this.pizzaBakeTimer_Tick);
         }
-        public PizzaMachine()
-        {
-            InitializeComponent();
-        }
-
-        private void pizzaBakeTimer_Tick(object sender, EventArgs e)
+        private void pizzaBakeTimer_Tick(object sender, EventArgs e)   //3.10
         {
             Pizza aPizza = new Pizza(this.Ingredients);
             mPizzas.Add(aPizza);
             PizzaComplete();
         }
-        public bool Enabled
+        public PizzaMachine()        //3.9
         {
+            InitializeComponent();
+        }
+
+        
+        public bool Enabled
+        {                                //3.11
             set
             {
                 pizzaBakeTimer.IsEnabled = value;
@@ -65,7 +68,7 @@ namespace Cozma_Miruna_Lab2
                 pizzaBakeTimer.Interval = new TimeSpan(0, 0, value);
             }
         }
-        public void MakePizzas(PizzaType dIngredients)
+        public void MakePizzas(PizzaType dIngredients)           //3.12
         {
             Ingredients = dIngredients;
 
@@ -81,7 +84,7 @@ namespace Cozma_Miruna_Lab2
             pizzaBakeTimer.Start();
         }
     }  //end PizzaMachine Class
-    enum PizzaType
+    enum PizzaType   //3.2
     {
         Margherita,
         Pepperoni,
@@ -89,7 +92,7 @@ namespace Cozma_Miruna_Lab2
         Quattro_Stagioni,
         Canibale
     }
-    class Pizza
+    class Pizza               //3.3
     {
         private PizzaType mIngredients; // câmp
         public PizzaType Ingredients // proprietate
